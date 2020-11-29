@@ -11,8 +11,8 @@ export const Logo = (props: any) => {
             position: "fixed",
             top: "0px",
             left: "0px",
-            width: window.innerWidth * 0.09,
-            height: window.innerHeight * 0.18,
+            width: window.innerWidth * 0.11,
+            height: window.innerHeight * 0.22,
           }}
           src={logo}
         />
