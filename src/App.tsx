@@ -76,6 +76,7 @@ const App: React.FC = () => {
         <img
           src="https://cdn.discordapp.com/attachments/774607515966898188/782234631071727636/MEDVICE.gif"
           style={{ marginLeft: "25%", width: "50%", height: "100vh" }}
+          alt="main-logo"
         />
       ) : null}
       {title ? (

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React, {  useState } from "react";
+// import logo from "./logo.svg";
 import "./App.css";
 import { Logo } from "./components/Logo";
 
-interface Article {
-  text: string;
-  image: string;
-}
+// interface Article {
+//   text: string;
+//   image: string;
+// }
 
 const MedicalTermSearch: React.FC = () => {
   const [text, setText] = useState("");
@@ -100,6 +100,7 @@ const MedicalTermSearch: React.FC = () => {
                   src={image}
                   key={image}
                   style={{ width: "100%", height: "100%" }}
+                  alt="data-img"
                 />
               ))}
             </div>
