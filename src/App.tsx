@@ -1,42 +1,48 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
 import { Logo } from "./components/Logo";
-
-interface Article {
-  text: string;
-  image: string;
-}
+import "./App.css";
 
 const App: React.FC = () => {
   const [text, setText] = useState("");
-  const [article, setArticle] = useState<string | null>(null);
-  const [images, setImages] = useState<string[] | null>(null);
+  const [articles, setArticles] = useState<[]>([]);
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const search = () => {
-    fetch(
-      `https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&titles=${text}`
-    )
+    setLoading(true);
+    fetch(`https://medvice-backend.herokuapp.com/search?searchquery=${text}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then(({ data }) => {
         console.log(data);
-        setArticle(data.query.pages[Object.keys(data.query.pages)[0]].extract);
-        getImages();
+        const updatedData = data.map((item: any) =>
+          item.map((el: any) => {
+            if (el.includes("http")) {
+              console.log("this was true");
+              return `<a style="color: white; " href='${el}'>${el}</a>`;
+            } else {
+              return el
+                .replace("content", "div")
+                .replace("/content", "/div")
+                .replace("name=", "class=");
+            }
+          })
+        );
+        setTitle(text);
+        setArticles(updatedData);
         setText("");
-        setTitle(data.query.pages[Object.keys(data.query.pages)[0]].title);
+        setLoading(false);
       });
   };
 
-  const getImages = () => {
-    fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${text}`)
-      .then((res) => res.json())
-      .then((data) => setImages([data.thumbnail.source]));
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
   };
 
   return (
     <div className="App">
       <Logo />
+
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -58,54 +64,43 @@ const App: React.FC = () => {
           <input
             className="search-input"
             placeholder="Medical term"
-            onChange={(e) => setText(e.target.value)}
+            onChange={onChange}
             value={text}
           />
           <button className="search-button">Search</button>
         </div>
       </form>
-      <div>
-        {article && images !== null ? (
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-            }}
-          >
+      {loading === true ? (
+        <img
+          src="https://cdn.discordapp.com/attachments/774607515966898188/782234631071727636/MEDVICE.gif"
+          style={{ marginLeft: "25%", width: "50%", height: "100vh" }}
+        />
+      ) : null}
+      {title ? (
+        <h2 style={{ color: "#F9FFFF", textAlign: "center" }}>{title}</h2>
+      ) : null}
+      {articles.length > 0 && loading === false ? (
+        <div>
+          {articles?.map((article: any) => (
             <div
               style={{
-                width: "70%",
-                height: `${window.innerHeight * 0.9}px`,
-                overflowY: "scroll",
+                width: "100%",
                 color: "#F9FFFF",
                 fontFamily: "Segoe UI",
                 boxShadow:
                   "0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08)",
+                marginBottom: "1rem",
               }}
             >
-              <h1 style={{ textAlign: "center" }}>{title}</h1>
-              <div dangerouslySetInnerHTML={{ __html: article }}></div>
-            </div>
-
-            <div
-              style={{
-                position: "fixed",
-                top: "30%",
-                right: "0px",
-                width: "25%",
-              }}
-            >
-              {images.map((image) => (
-                <img
-                  src={image}
-                  key={image}
-                  style={{ width: "100%", height: "100%" }}
-                />
+              {article.map((item: any) => (
+                <div>
+                  <div dangerouslySetInnerHTML={{ __html: item }}></div>
+                </div>
               ))}
             </div>
-          </div>
-        ) : null}
-      </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 };
