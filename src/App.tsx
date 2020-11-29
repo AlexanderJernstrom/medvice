@@ -62,7 +62,7 @@ const App: React.FC = () => {
         </h2>
         <div style={{ width: "100%" }}>
           <input
-            className="search-input"
+            className="search-input-article-search"
             placeholder="Name of article"
             onChange={onChange}
             value={text}
