@@ -68,6 +68,11 @@ body {
   animation-duration: 5s;
   animation-timing-function: linear;
 }
+.qt0 {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+}
 
 @keyframes landingpage {
   0% {
