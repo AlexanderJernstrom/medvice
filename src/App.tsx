@@ -18,8 +18,10 @@ const App: React.FC = () => {
         const updatedData = data.map((item: any) =>
           item.map((el: any) => {
             if (el.includes("http")) {
-              console.log("this was true");
-              return `<a style="color: white; " href='${el}'>${el}</a>`;
+              const link = el
+                .replace('<content name="dc:identifier">', "")
+                .replace("</content>", "");
+              return `<a style="color: white; " href='${link}'>${link}</a>`;
             } else {
               return el
                 .replace("content", "div")
