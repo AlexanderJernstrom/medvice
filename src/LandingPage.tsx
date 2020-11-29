@@ -33,12 +33,20 @@ export const LandingPage = (props: any) => {
 
         <div
           className="landing-container"
-          onClick={() => props.history.push("/search")}
+          onClick={() => props.history.push("/articleSearch")}
         >
           <h3>Article searcher</h3>
           <p>
-            Here you can search for any medical term, organ or body part and get
-            relevant information
+            Here you can search for any medical article, in different languages
+          </p>
+        </div>
+        <div
+          className="landing-container"
+          onClick={() => props.history.push("/termSearch")}
+        >
+          <h3>Term search</h3>
+          <p>
+            A place where you can search any medical term, organ or body part
           </p>
         </div>
       </div>

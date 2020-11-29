@@ -2,12 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import App from "./App";
 import { LandingPage } from "./LandingPage";
+import MedicalTermSearch from "./MedicalTermSearch";
 
 export const RouterApp = () => {
   return (
     <Router>
       <Route path="/" exact component={LandingPage} />
-      <Route path="/search" component={App} />
+      <Route path="/articleSearch" component={App} />
+      <Route path="/termSearch" component={MedicalTermSearch} />
     </Router>
   );
 };

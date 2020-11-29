@@ -58,12 +58,12 @@ const App: React.FC = () => {
         }}
       >
         <h2 style={{ textAlign: "center", color: "#FFDF2B" }}>
-          Enter any medical term
+          Enter the name of any medical article
         </h2>
         <div style={{ width: "100%" }}>
           <input
             className="search-input"
-            placeholder="Medical term"
+            placeholder="Name of article"
             onChange={onChange}
             value={text}
           />
