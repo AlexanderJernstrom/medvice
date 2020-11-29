@@ -15,6 +15,7 @@ export const Logo = (props: any) => {
             height: window.innerHeight * 0.22,
           }}
           src={logo}
+          alt="Logo"
         />
       </Link>
     </div>
