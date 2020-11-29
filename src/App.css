@@ -13,6 +13,12 @@ body {
   width: 87%;
   color: #ffffff;
 }
+.copyright {
+  list-style: none;
+
+  text-align: center;
+  color: #f9ffff;
+}
 
 .search-input-article-search {
   outline: none;
